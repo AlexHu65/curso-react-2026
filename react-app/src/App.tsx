@@ -1,9 +1,11 @@
-import Titulo from './Titulo';
+import Card, {CardBody} from './Components/Card';
 
 function App() {
   return (
     <>
-      <Titulo />
+      <Card>
+        <CardBody title="Titulo" text="Este es el contenido de la tarjeta" buttonText="Go somewhere" buttonLink="#" />
+      </Card>
     </>
   );
 }
