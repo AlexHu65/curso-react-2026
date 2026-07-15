@@ -16,7 +16,7 @@ function Card(props: Props) {
              <div className="card-body">
                 <p>{children}</p>
              </div>
-         </div>
+        </div>
     );
     // // Se agrega al componente ya que pide un objeto
     // const styles = {
@@ -48,13 +48,11 @@ interface CardBodyProps {
 export function CardBody(props: CardBodyProps) {
      const { title, text, buttonText, buttonLink } = props;
       return (
-          <div className="card" style={{ width: '18rem' }}>
-              <div className="card-body">
-                  <h5 className="card-title">{title}</h5>
-                  {text && <p className="card-text">{text}</p>}
-                  <a href={buttonLink} className="btn btn-primary">{buttonText}</a>
-              </div>
-          </div>
+            <div className="card-body">
+                <h5 className="card-title">{title}</h5>
+                {text && <p className="card-text">{text}</p>}
+                <a href={buttonLink} className="btn btn-primary">{buttonText}</a>
+            </div>
       );
 
  }

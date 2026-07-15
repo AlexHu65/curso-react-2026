@@ -55,8 +55,8 @@ function Card(props: Props) {
         <div className="card" style={{ width: '18rem' }}>
              <div className="card-body">
                 <p>{children}</p>
-             </div>
-         </div>
+            </div>
+        </div>
     );
 }
 
@@ -71,12 +71,10 @@ interface CardBodyProps {
 export function CardBody(props: CardBodyProps) {
      const { title, text, buttonText, buttonLink } = props;
       return (
-          <div className="card" style={{ width: '18rem' }}>
-              <div className="card-body">
-                  <h5 className="card-title">{title}</h5>
-                  {text && <p className="card-text">{text}</p>}
-                  <a href={buttonLink} className="btn btn-primary">{buttonText}</a>
-              </div>
+          <div className="card-body">
+              <h5 className="card-title">{title}</h5>
+              {text && <p className="card-text">{text}</p>}
+              <a href={buttonLink} className="btn btn-primary">{buttonText}</a>
           </div>
       );
 
@@ -87,7 +85,7 @@ export default Card
 ```
 
 - `Card` ahora funciona como contenedor y recibe JSX por `children`.
-- `CardBody` es un componente exportado aparte para armar la tarjeta completa.
+- `CardBody` es un componente exportado aparte para armar solo el contenido interno de la tarjeta.
 - `text` está como opcional para mostrar o no el párrafo.
 - El código conserva la forma trabajada en clase, pero con una composición más clara entre `Card` y `CardBody`.
 
@@ -105,7 +103,53 @@ export default Card
 ```
 
 - Desde otro componente se envuelve `CardBody` dentro de `Card`.
-- React renderiza `children` dentro del contenedor y deja `CardBody` como contenido principal.
+- React renderiza `children` dentro del contenedor y deja `CardBody` junto con otros elementos como contenido principal.
+
+## Listas con eventos
+
+- Se creó un componente `List` para mostrar una colección de elementos a partir de un arreglo.
+- `List` recibe una prop llamada `data` de tipo `string[]`.
+- El arreglo se recorre con `map` para pintar cada elemento dentro de un `li`.
+- Cada `li` usa una `key` para que React identifique cada elemento de la lista.
+- Se agregó un evento `onClick` para mostrar en un `alert` el texto del elemento presionado.
+- `MouseEvent` se usa para tipar correctamente el evento del clic.
+- Este componente sirve para practicar props, listas y eventos en React.
+
+### `List.tsx`
+
+```tsx
+import type { MouseEvent } from 'react';
+
+type Props = {
+  data: string[];
+};
+
+function List({ data }: Props) {
+    const handleClick = (e: MouseEvent) => {
+        alert(e.currentTarget.textContent);
+    };
+
+    return (
+        <div>
+        <ul className="list-group">
+            {data.map((item, index) => (
+            <li 
+                onClick={handleClick}
+                key={`${index}${item}`} 
+                className="list-group-item">{item}
+            </li>
+            ))}
+        </ul>
+        </div>
+    );
+}
+
+export default List;
+```
+
+- `data.map(...)` permite renderizar una lista dinámica.
+- `handleClick` toma el texto del elemento clickeado y lo muestra en pantalla.
+- El componente queda listo para reutilizarse con distintos arreglos.
 
 ## Ejemplos / código
 
@@ -131,12 +175,16 @@ createRoot(document.getElementById('root')!).render(
 
 ```tsx
 import Card, {CardBody} from './Components/Card';
+import List from './Components/List';
 
 function App() {
+  const listData = ['Item 1', 'Item 2', 'Item 3'];
+
   return (
     <>
       <Card>
         <CardBody title="Titulo" text="Este es el contenido de la tarjeta" buttonText="Go somewhere" buttonLink="#" />
+        <List data={listData} />
       </Card>
     </>
   );
@@ -145,8 +193,9 @@ function App() {
 export default App;
 ```
 
-- `App` importa `Card` y `CardBody` desde `./Components/Card`.
-- `App` ya no usa `Titulo` en esta versión, sino una tarjeta compuesta.
+- `App` importa `Card`, `CardBody` y `List`.
+- `App` define un arreglo `listData` y lo pasa al componente `List`.
+- `App` ya no usa `Titulo` en esta versión, sino una tarjeta compuesta con una lista dentro.
 - El fragment `<>...</>` permite devolver varios elementos sin agregar un contenedor extra.
 
 ### `Titulo.tsx`
