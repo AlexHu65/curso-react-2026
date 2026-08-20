@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+// import { useState } from "react";
 
 // se puede usar esatoimport Fragment from 'react';
 interface Props {
@@ -46,12 +47,21 @@ interface CardBodyProps {
 }
 
 export function CardBody(props: CardBodyProps) {
-     const { title, text, buttonText, buttonLink } = props;
+     const { title, text } = props;
+
+    //  const [loading, setLoading] = useState(false);
+
+    //  const handleClick = () => {
+    //     setLoading(true);
+    //  };
+
       return (
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 {text && <p className="card-text">{text}</p>}
-                <a href={buttonLink} className="btn btn-primary">{buttonText}</a>
+                {/* <a href={buttonLink} className="btn btn-primary">{buttonText}</a> */}
+                {/* <button onClick={handleClick} type="button" className={`btn btn-${loading ? 'secondary' : 'primary'}`}>{loading ? 'Cargando...' : 'Hola mundo'}</button> */}
+
             </div>
       );
 

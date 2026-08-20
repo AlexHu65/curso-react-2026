@@ -1,25 +1,30 @@
-import type { MouseEvent } from 'react';
-
+import { useState } from 'react';
 
 type Props = {
   data: string[];
+  onSelect?: (item: string) => void;
 };
 
 
-function List({ data }: Props) {
+function List({ data, onSelect }: Props) {
 
-    const handleClick = (e: MouseEvent) => {
-        alert(e.currentTarget.textContent);
+    const [index, setIndex] = useState(1);
+    
+    const handleClick = (i: number, element: string) => {
+        setIndex(i);
+        // Puede o no estar la funcion definida
+        onSelect?.(element);
     };
 
     return (
         <div>
         <ul className="list-group">
-            {data.map((item, index) => (
+            {data.map((item, i) => (
             <li 
-                onClick={handleClick}
-                key={`${index}${item}`} 
-                className="list-group-item">{item}
+                onClick={() => handleClick(i, item)}
+                key={`${i}${item}`}
+                style={{ cursor: 'pointer' }}
+                className={`list-group-item ${index == i ? 'active' : ''}`}>{item}
             </li>
             ))}
         </ul>
