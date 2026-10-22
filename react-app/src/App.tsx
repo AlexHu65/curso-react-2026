@@ -32,22 +32,41 @@ function App() {
   // );
 
   const [data, setData] = useState(['Goku', 'Vegeta', 'Trunks', 'Gohan', 'Piccolo']);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAdd, setIsLoadingAdd] = useState(false);
+  const MAX_ITEMS: number = 10;
+  const MIN_ITEMS: number = 1;
+  const TIMEOUT: number = 500;
 
   const addMinion = () => {
-    setData([...data, 'Minion']);
+    if (data.length >= MAX_ITEMS) {
+      alert('No se pueden agregar más elementos');
+      return;
+    }
+    setIsLoadingAdd(true);
+    setTimeout(() => {
+      setData([...data, 'Minion']);
+      setIsLoadingAdd(false);
+    }, TIMEOUT);
   };
 
   const removeMinion = () => {
-    if (data.length > 0) {
-      setData(data.slice(0, data.length - 1));
+    if (data.length > MIN_ITEMS) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setData(data.slice(0, data.length - 1));
+        setIsLoading(false);
+      }, TIMEOUT);
+    } else {
+      alert('No se puede eliminar el último elemento');
     }
   };
 
   return (
     <>
       <Card>
-        <Button onClick={addMinion}>Agregar Item</Button>
-        <Button onClick={removeMinion}>Eliminar Item</Button>
+        <Button isLoading={isLoadingAdd} onClick={addMinion}>Agregar Item</Button>
+        <Button isLoading={isLoading} onClick={removeMinion}>Eliminar Item</Button>
         <br></br>
         <List data={data}/>
       </Card>

@@ -1,0 +1,11 @@
+ .button{
+   background-color: #1d9684;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   margin: 5px;
+ }
+
+ .padded{
+   padding: 10px 20px;
+ }

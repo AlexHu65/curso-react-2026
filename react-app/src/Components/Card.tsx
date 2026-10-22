@@ -16,6 +16,7 @@ function Card(props: Props) {
         <div className="card" style={{ width: '18rem' }}>
              <div className="card-body">
                 <p>{children}</p>
+                <CardBody title="Titulo" text="Texto de ejemplo" buttonText="Go somewhere" buttonLink="#" />
              </div>
         </div>
     );
