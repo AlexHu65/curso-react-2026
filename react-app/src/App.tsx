@@ -1,6 +1,8 @@
 import Button from './Components/Button';
 import Card, {CardBody} from './Components/Card';
 import List from './Components/List';
+import Alert from './Components/Alert';
+import SentButton from './Components/SentButton';
 import { useState } from 'react';
 
 function App() {
@@ -62,6 +64,11 @@ function App() {
     }
   };
 
+  const [status, setStatus] = useState(false);
+  const [sent, setSent] = useState(false);
+  const toggleStatus = () => setStatus(!status);
+  const toggleSent = () => setSent(!sent);
+
   return (
     <>
       <Card>
@@ -70,6 +77,14 @@ function App() {
         <br></br>
         <List data={data}/>
       </Card>
+      {/* importar alert y usarlo aquí */}
+      <Alert status={status} onClick={toggleStatus}>
+        Este es un mensaje de alerta
+      </Alert>
+
+      <SentButton status={sent} onClick={toggleSent}>
+        Enviar
+      </SentButton>
     </>
   );
 }

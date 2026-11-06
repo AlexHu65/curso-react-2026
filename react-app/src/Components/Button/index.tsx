@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 // el module CSS permite importar estilos específicos para este componente, 
 // evitando conflictos con otros estilos en la aplicación
 import styles from './Button.module.css';
+import { FaRegThumbsUp } from 'react-icons/fa';
 import styled from 'styled-components';
 
 type BtnProps = {
@@ -20,7 +21,7 @@ const Btn = styled.button<BtnProps>`
 
 type Props = {
     children: ReactNode;
-    isLoading?: boolean;
+    isLoading: boolean;
     onClick?: () => void;
 };
 
@@ -49,6 +50,7 @@ const Button = ({ children, isLoading, onClick }: Props) => {
             // className={[styles.button, styles.padded].join(' ')}>{isLoading ? 'Cargando...' : children}
         >
             {isLoading ? 'Cargando...' : children}
+            {!isLoading && <FaRegThumbsUp />}
         </Btn>
     );
 };

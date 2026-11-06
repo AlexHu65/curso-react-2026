@@ -1,0 +1,13 @@
+.sentButton {
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.success {
+  background-color: #28a745;
+  color: #fff;
+}
+.error {
+  background-color: #dc3545;
+  color: #fff;
+}
